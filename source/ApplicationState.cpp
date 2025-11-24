@@ -390,33 +390,7 @@ void ApplicationState::getAppInformation() {
     }
 }
 
-std::string ApplicationState::ErrorMessage() {
-    if (this->error == ERROR_NONE) {
-        return "NONE";
-    } else if (this->error == ERROR_NO_APP_INSTALLED) {
-        return "ERROR_NO_APP_INSTALLED";
-    } else if (this->error == ERROR_IOSUHAX_FAILED) {
-        return "ERROR_IOSUHAX_FAILED";
-    } else if (this->error == ERROR_INSTALLER_ERROR) {
-        return InstallerService::ErrorMessage(this->installerError);
-    } else if (this->error == ERROR_UNEXPECTED_STATE) {
-        return "ERROR_UNEXPECTED_STATE";
-    }
-}
 
-std::string ApplicationState::ErrorDescription() {
-    if (this->error == ERROR_NONE) {
-        return "-";
-    } else if (this->error == ERROR_NO_APP_INSTALLED) {
-        return "No compatible application is installed. A safe installation is not possible.";
-    } else if (this->error == ERROR_INSTALLER_ERROR) {
-        return InstallerService::ErrorDescription(this->installerError);
-    } else if (this->error == ERROR_IOSUHAX_FAILED) {
-        return "Failed to init IOSUHAX.";
-    } else if (this->error == ERROR_UNEXPECTED_STATE) {
-        return "ERROR_UNEXPECTED_STATE";
-    }
-}
 
 
 
