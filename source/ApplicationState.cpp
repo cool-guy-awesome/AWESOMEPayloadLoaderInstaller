@@ -420,9 +420,6 @@ std::string ApplicationState::ErrorDescription() {
     return "UNKNOWN_ERROR";
 }
 
-void ApplicationState::setError(eErrorState err) {
-    this->error = err;
-    changeState(STATE_ERROR);
-}
+
 
 
