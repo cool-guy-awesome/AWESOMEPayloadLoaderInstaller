@@ -402,7 +402,6 @@ std::string ApplicationState::ErrorMessage() {
     } else if (this->error == ERROR_UNEXPECTED_STATE) {
         return "ERROR_UNEXPECTED_STATE";
     }
-    return "UNKNOWN_ERROR";
 }
 
 std::string ApplicationState::ErrorDescription() {
@@ -417,8 +416,8 @@ std::string ApplicationState::ErrorDescription() {
     } else if (this->error == ERROR_UNEXPECTED_STATE) {
         return "ERROR_UNEXPECTED_STATE";
     }
-    return "UNKNOWN_ERROR";
 }
+
 
 
 
