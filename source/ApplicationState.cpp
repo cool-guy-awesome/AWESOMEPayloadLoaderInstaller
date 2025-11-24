@@ -422,7 +422,7 @@ std::string ApplicationState::ErrorDescription() {
 
 void ApplicationState::setError(eErrorState err) {
     this->error = err;
-    OSEnableHomeButtonMenu(true);
     changeState(STATE_ERROR);
 }
+
 
