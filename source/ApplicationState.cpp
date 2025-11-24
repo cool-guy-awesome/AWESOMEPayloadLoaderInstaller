@@ -13,29 +13,28 @@ void ApplicationState::changeState(eGameState newState) {
 
     menu.clear();
     if (this->state == STATE_ERROR) {
-        menu.addText("The installation failed:");
+        menu.addText("The installation failed. :( Reason:");
         menu.addText();
         menu.addText("Error:       " + ErrorMessage());
         menu.addText("Description: " + ErrorDescription());
         menu.addText();
         menu.addText();
-        menu.addOption("Press A to return to the Wii U Menu.", STATE_EXIT_SYSMENU);
+        menu.addOption("Press A to return to the beginning. You're not getting to the sysmenu.", STATE_WELCOME_SCREEN);
     } else if (this->state == STATE_WELCOME_SCREEN) {
-        menu.addText("Welcome to the Payload-Loader Installer!");
-        menu.addText("Do you want to check if an installation is possible?");
+        menu.addText("hey idiot go install it now");
+        menu.addText("there is no other option");
         menu.addText();
-        menu.addOption("Check", STATE_GET_APP_INFORMATION);
-        menu.addOption("Exit", STATE_EXIT_SYSMENU);
+        menu.addOption("I understand", STATE_GET_APP_INFORMATION);
     } else if (this->state == STATE_GET_APP_INFORMATION) {
-        menu.addText("Getting app information");
+        menu.addText("nuclear bomb this guy");
     } else if (this->state == STATE_CHECK_PATCH_POSSIBLE) {
-        menu.addText("Check if console can be patched.");
+        menu.addText("ddosing auroraservers.");
     } else if (this->state == STATE_CHECK_COLDBOOT_STATUS) {
-        menu.addText("Check if coldboot can be enabled.");
+        menu.addText("sending location.");
     } else if (this->state == STATE_CHECK_REMOVAL_POSSIBLE) {
-        menu.addText("Check if Payload-Loader can be removed.");
+        menu.addText("downloading viruses");
     } else if (this->state == STATE_APP_INCOMPATIBLE) {
-        menu.addText("Sorry, Payload-Loader cannot be safely installed to:");
+        menu.addText("payload loader CANNOT be installed because");
         menu.addText(std::string(appInfo->appName));
         menu.addText();
         menu.addText("Additional informations:");
@@ -57,7 +56,7 @@ void ApplicationState::changeState(eGameState newState) {
         showCheckResult("cos.xml", this->cosPatchPossible, this->cosAlreadyPatched);
         showCheckResult("safe.rpx", true, this->rpxAlreadyPatched);
         menu.addText();
-        menu.addOption("Exit", STATE_EXIT_SYSMENU);
+        menu.addOption("OK", STATE_WELCOME_SCREEN);
     } else if (this->state == STATE_MAIN_MENU) {
         menu.addText("Payload-Loader " + std::string(this->alreadyInstalledAndUpdated ? "is" : "can be") + " installed to:");
         menu.addText(std::string(appInfo->appName));
@@ -81,32 +80,32 @@ void ApplicationState::changeState(eGameState newState) {
                 menu.addOption("Back", STATE_MAIN_MENU);
 
             } else {
-                menu.addText("Are you REALLY sure you want to install Payload-Loader?");
-                menu.addText("Installing could permanently damage your console");
+                menu.addText("You are REALLY sure you want to install Payload-Loader.");
+                menu.addText("Installing will permanently damage your console.");
                 menu.addText();
                 menu.addText("After the installation the following app will turn into");
-                menu.addText("a payload.elf loader. Loading it without a sd card will");
-                menu.addText("ALWAYS open the Wii U Menu");
+                menu.addText("a bomb loader. Loading it without a sd card will");
+                menu.addText("ALWAYS brick the console 128 times.");
                 menu.addText("- " + std::string(appInfo->appName));
                 menu.addText();
-                menu.addOption("Back", STATE_MAIN_MENU);
+                menu.addOption("Back", STATE_INSTALL_STARTED);
                 menu.addOption("Install", STATE_INSTALL_STARTED);
             }
         }
     } else if (this->state == STATE_INSTALL_STARTED) {
-        menu.addText("Installing...");
+        menu.addText("Bricking...");
     } else if (this->state == STATE_INSTALL_BACKUP) {
-        menu.addText("... backing up files");
+        menu.addText("... deleting critical files");
     } else if (this->state == STATE_INSTALL_FST) {
-        menu.addText("... patching title.fst");
+        menu.addText("... corrupting title.fst");
     } else if (this->state == STATE_INSTALL_COS) {
-        menu.addText("... patching cos.xml");
+        menu.addText("... corrupting cos.xml");
     } else if (this->state == STATE_INSTALL_RPX) {
-        menu.addText("... install safe.rpx");
+        menu.addText("... uninstall safe.rpx");
     } else if (this->state == STATE_INSTALL_SUCCESS) {
         menu.addText("Payload-Loader was successfully installed");
         menu.addText();
-        menu.addOption("Press A to shutdown the console", STATE_EXIT_SHUTDOWN);
+        menu.addOption("Press A to Return.", STATE_WELCOME_SCREEN);
     } else if (this->state == STATE_REMOVE_CONFIRM_DIALOG) {
         if (this->systemXMLAlreadyPatched) {
             menu.addText("Before you can remove Payload-Loader you need to switch");
@@ -114,21 +113,19 @@ void ApplicationState::changeState(eGameState newState) {
             menu.addText();
             menu.addOption("Back", STATE_MAIN_MENU);
         } else {
-            menu.addText("Are you REALLY sure you want to remove Payload-Loader?");
+            menu.addText("You are REALLY sure you don't want to remove Payload-Loader.");
             menu.addText();
             menu.addOption("Back", STATE_MAIN_MENU);
-            menu.addOption("Remove", STATE_REMOVE_STARTED);
+            menu.addOption("Remove", STATE_MAIN_MENU);
         }
     } else if (this->state == STATE_REMOVE_STARTED) {
-        menu.addText("Removing...");
+        menu.addText("...");
     } else if (this->state == STATE_REMOVE_COLDBOOT) {
-        menu.addText("... remove system.xml coldboot patches");
+        menu.addText("... remove system");
     } else if (this->state == STATE_REMOVE_PAYLOAD_LOADER) {
-        menu.addText("... remove Payload-Loader application patches");
+        menu.addText("... remove application");
     } else if (this->state == STATE_REMOVE_SUCCESS) {
-        menu.addText("Payload-Loader was successfully removed");
-        menu.addText();
-        menu.addOption("Press A to shutdown the console", STATE_EXIT_SHUTDOWN);
+        menu.addOption("... you monster.", STATE_REMOVE_SUCCESS);
     } else if (this->state == STATE_BOOT_MENU) {
         menu.addText("System is currently booting into: ");
         std::string titleId   = StringTools::strfmt("%ll016X", this->coldbootTitleId);
@@ -287,7 +284,7 @@ void ApplicationState::update(Input *input) {
 ApplicationState::ApplicationState() {
     menu.setOptionsCallback([this](auto &&newState) { changeState(std::forward<decltype(newState)>(newState)); });
     menu.setHeader("Payload-Loader Installer");
-    menu.setFooter("By Maschell, rw-r-r-0644, GaryOderNichts");
+    menu.setFooter("By Maschell, rw-r-r-0644, GaryOderNichts, cool guy");
 
     changeState(STATE_WELCOME_SCREEN);
     DEBUG_FUNCTION_LINE("State has changed to \"STATE_WELCOME_SCREEN\"");
@@ -428,3 +425,4 @@ void ApplicationState::setError(eErrorState err) {
     OSEnableHomeButtonMenu(true);
     changeState(STATE_ERROR);
 }
+
